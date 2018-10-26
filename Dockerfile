@@ -20,25 +20,25 @@ COPY tomcat_conf/catalina.properties $CATALINA_HOME/conf/
 
 COPY tomcat_conf/context/ebx.xml ${CATALINA_HOME}/conf/Catalina/localhost/
 
-COPY --from=mickaelgermemont/ebx:5.8.1.1067-0027 /data/ebx/libs/*.jar $CATALINA_HOME/lib/
-COPY --from=mickaelgermemont/ebx:5.8.1.1067-0027 /data/ebx/ebx.software/lib/ebx.jar $CATALINA_HOME/lib/
-COPY --from=mickaelgermemont/ebx:5.8.1.1067-0027 /data/ebx/ebx.software/lib/lib-h2/h2-1.3.170.jar $CATALINA_HOME/lib/
-COPY --from=mickaelgermemont/ebx:5.8.1.1067-0027 /data/ebx/ebx.software/webapps/wars-packaging/*.war $CATALINA_HOME/webapps/
+COPY --from=mickaelgermemont/ebx:5.9.0.1098 /data/ebx/libs/*.jar $CATALINA_HOME/lib/
+COPY --from=mickaelgermemont/ebx:5.9.0.1098 /data/ebx/ebx.software/lib/*.jar $CATALINA_HOME/lib/
+COPY --from=mickaelgermemont/ebx:5.9.0.1098 /data/ebx/ebx.software/lib/lib-h2/*.jar $CATALINA_HOME/lib/
+COPY --from=mickaelgermemont/ebx:5.9.0.1098 /data/ebx/ebx.software/webapps/wars-packaging/*.war $CATALINA_HOME/webapps/
 
-COPY --from=mickaelgermemont/ebx-addons:5.8.1.1067-0029_addons_3.20.4.0036-0020 /data/ebx/lib/ebx-addons.jar $CATALINA_HOME/lib/
-COPY --from=mickaelgermemont/ebx-addons:5.8.1.1067-0029_addons_3.20.4.0036-0020 /data/ebx/wars/ebx-addon-common.war $CATALINA_HOME/webapps/
-COPY --from=mickaelgermemont/ebx-addons:5.8.1.1067-0029_addons_3.20.4.0036-0020 /data/ebx/wars/ebx-addon-adix.war $CATALINA_HOME/webapps/
+COPY --from=mickaelgermemont/ebx-addons:5.9.0.1098_addons_4.0.0.0038 /data/ebx/lib/ebx-addons.jar $CATALINA_HOME/lib/
+COPY --from=mickaelgermemont/ebx-addons:5.9.0.1098_addons_4.0.0.0038 /data/ebx/wars/ebx-addon-common.war $CATALINA_HOME/webapps/
+COPY --from=mickaelgermemont/ebx-addons:5.9.0.1098_addons_4.0.0.0038 /data/ebx/wars/ebx-addon-adix.war $CATALINA_HOME/webapps/
 
-COPY --from=mickaelgermemont/ebx-mima-dataonly:2.0.0 /data/mima/on-ps-mima-lib.jar $CATALINA_HOME/lib/
-COPY --from=mickaelgermemont/ebx-mima-dataonly:2.0.0 /data/mima/on-ps-mima-web.war $CATALINA_HOME/webapps/
+#COPY --from=mickaelgermemont/ebx-mima-dataonly:2.0.0 /data/mima/on-ps-mima-lib.jar $CATALINA_HOME/lib/
+#COPY --from=mickaelgermemont/ebx-mima-dataonly:2.0.0 /data/mima/on-ps-mima-web.war $CATALINA_HOME/webapps/
 
 ###
 ### PROJECT
 
 ENV EBX_OPTS="-Debx.home=${EBX_HOME} -Debx.properties=/data/app/ebx.properties"
 
-COPY app/target/deps/*.jar $CATALINA_HOME/lib/
-COPY xyz-mdm.war $CATALINA_HOME/webapps/
+#COPY app/target/deps/*.jar $CATALINA_HOME/lib/
+#COPY xyz-mdm.war $CATALINA_HOME/webapps/
 
 COPY ebx.properties /data/app/ebx.properties
 
