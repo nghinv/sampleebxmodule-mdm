@@ -1,4 +1,11 @@
+ARG EBX_VERSION
+ARG EBX_ADDONS_VERSION
+
+FROM mickaelgermemont/ebx:${EBX_VERSION} as EbxRelease
+FROM mickaelgermemont/ebx-addons:${EBX_ADDONS_VERSION} as EbxAddonsRelease
+
 FROM tomcat:9.0.12-jre11
+ARG EBX_VERSION
 
 ENV EBX_HOME /data/app/ebx
 RUN mkdir -p ${EBX_HOME}
@@ -20,14 +27,14 @@ COPY tomcat_conf/catalina.properties $CATALINA_HOME/conf/
 
 COPY tomcat_conf/context/ebx.xml ${CATALINA_HOME}/conf/Catalina/localhost/
 
-COPY --from=mickaelgermemont/ebx:5.9.0.1098 /data/ebx/libs/*.jar $CATALINA_HOME/lib/
-COPY --from=mickaelgermemont/ebx:5.9.0.1098 /data/ebx/ebx.software/lib/*.jar $CATALINA_HOME/lib/
-COPY --from=mickaelgermemont/ebx:5.9.0.1098 /data/ebx/ebx.software/lib/lib-h2/*.jar $CATALINA_HOME/lib/
-COPY --from=mickaelgermemont/ebx:5.9.0.1098 /data/ebx/ebx.software/webapps/wars-packaging/*.war $CATALINA_HOME/webapps/
+COPY --from=EbxRelease /data/ebx/libs/*.jar $CATALINA_HOME/lib/
+COPY --from=EbxRelease /data/ebx/ebx.software/lib/*.jar $CATALINA_HOME/lib/
+COPY --from=EbxRelease /data/ebx/ebx.software/lib/lib-h2/*.jar $CATALINA_HOME/lib/
+COPY --from=EbxRelease /data/ebx/ebx.software/webapps/wars-packaging/*.war $CATALINA_HOME/webapps/
 
-COPY --from=mickaelgermemont/ebx-addons:5.9.0.1098_addons_4.0.0.0038 /data/ebx/lib/ebx-addons.jar $CATALINA_HOME/lib/
-COPY --from=mickaelgermemont/ebx-addons:5.9.0.1098_addons_4.0.0.0038 /data/ebx/wars/ebx-addon-common.war $CATALINA_HOME/webapps/
-COPY --from=mickaelgermemont/ebx-addons:5.9.0.1098_addons_4.0.0.0038 /data/ebx/wars/ebx-addon-adix.war $CATALINA_HOME/webapps/
+COPY --from=EbxAddonsRelease /data/ebx/lib/ebx-addons.jar $CATALINA_HOME/lib/
+COPY --from=EbxAddonsRelease /data/ebx/wars/ebx-addon-common.war $CATALINA_HOME/webapps/
+COPY --from=EbxAddonsRelease /data/ebx/wars/ebx-addon-adix.war $CATALINA_HOME/webapps/
 
 #COPY --from=mickaelgermemont/ebx-mima-dataonly:2.0.0 /data/mima/on-ps-mima-lib.jar $CATALINA_HOME/lib/
 #COPY --from=mickaelgermemont/ebx-mima-dataonly:2.0.0 /data/mima/on-ps-mima-web.war $CATALINA_HOME/webapps/
@@ -37,8 +44,8 @@ COPY --from=mickaelgermemont/ebx-addons:5.9.0.1098_addons_4.0.0.0038 /data/ebx/w
 
 ENV EBX_OPTS="-Debx.home=${EBX_HOME} -Debx.properties=/data/app/ebx.properties"
 
-#COPY app/target/deps/*.jar $CATALINA_HOME/lib/
-#COPY xyz-mdm.war $CATALINA_HOME/webapps/
+COPY app/target/deps/*.jar $CATALINA_HOME/lib/
+COPY xyz-mdm.war $CATALINA_HOME/webapps/
 
 COPY ebx.properties /data/app/ebx.properties
 

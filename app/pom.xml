@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>com.orchestranetworks.ebx</groupId>
 			<artifactId>ebx.api.core</artifactId>
-			<version>5.8.1.1067</version>
+			<version>5.9.0.1098</version>
 			<scope>provided</scope>
 		</dependency>
 

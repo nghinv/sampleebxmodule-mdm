@@ -19,15 +19,16 @@ cd app && mvn clean install && cd .. && cp app/target/xyz-mdm-0.1.war xyz-mdm.wa
 ## Docker build
 
 ```
-put your ebxLicense in ~/.profile
-export EBXLICENSE=XXXXX-XXXXX-XXXXX-XXXXX
-source ~/.profile
-docker build -t xyz-mdm:0.0.1 .
+docker build --build-arg EBX_VERSION=5.9.0.1098 --build-arg EBX_ADDONS_VERSION=5.9.0.1098_addons_4.0.0.0038 -t xyz-mdm:0.0.1 .
 ```
 
 ## Docker run
 
 ```
+put your ebxLicense in ~/.profile
+export EBXLICENSE=XXXXX-XXXXX-XXXXX-XXXXX
+source ~/.profile
+
 docker run --rm -p 9090:8080 --mount type=volume,src=ebx590,dst=/data/app/ebx -e "CATALINA_OPTS=-DebxLicense=$EBXLICENSE" --name ebx1 xyz-mdm:0.0.1
 ```
 
