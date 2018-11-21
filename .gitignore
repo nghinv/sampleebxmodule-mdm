@@ -1,3 +1,6 @@
-xyz-mdm.war
-*/target/*
+**/*.war
 **/target
+**/.settings
+**/.classpath
+**/.project
+**/.DS_Store
