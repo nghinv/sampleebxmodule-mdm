@@ -55,14 +55,13 @@ docker exec -it ebx1 /bin/bash
 
 === Configure
 
-
-
 . Download Jenkins, this was tested with jenkins/jenkins:2.151-slim [https://hub.docker.com/r/jenkins/jenkins/].
 . Start Jenkins: `docker run --rm --name jenkins1 -p 8080:8080 -p 50000:50000 --mount type=volume,src=Jenkins,dst=/var/jenkins_home jenkins/jenkins:2.151-slim`
 . Create First Admin User, `Save and Finish`.
 . Install suggested plugins
 . `Manage Jenkins`, `Global Tool Configuration`, configure Maven, use name `M3` (this name is used in `Jenkinsfile`)
 . `Manage Jenkins`, `Manage Plugins`, `Available`, install `CloudBees Docker Pipeline` plugin, `Install without restart`, select `Restart Jenkins`
+. setup dockerhub credentials 'docker-hub-credentials' see [https://getintodevops.com/blog/building-your-first-docker-image-with-jenkins-2-guide-for-developers]
 
 === Create Project
 

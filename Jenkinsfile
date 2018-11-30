@@ -32,7 +32,11 @@ node {
       sh "pwd"
       sh "ls"
 
-      docker.build("mickaelgermemont/xyz:${env.BUILD_NUMBER}").push()
+      app = docker.build("mickaelgermemont/xyz:${env.BUILD_NUMBER}", "--build-arg EBX_VERSION=5.9.0.1098 --build-arg EBX_ADDONS_VERSION=5.9.0.1098_addons_4.0.0.0038 .")
+      docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
    }
 
    // stage('Results') {
