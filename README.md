@@ -4,6 +4,8 @@ works with ebx5.9.0 & tomcat9 & jre11
 
 EBX Module with Maven
 
+uses ps-lib
+
 ## requirement
 
 have maven and be able to run mvn commands
@@ -33,6 +35,15 @@ docker run --rm -p 9090:8080 --mount type=volume,src=ebx590,dst=/data/app/ebx -e
 ```
 
 open your browser at ```http://localhost:9090/ebx```
+
+## all in one command
+
+```
+source ~/.profile \
+&& cd app && mvn clean install && cd .. && cp app/target/xyz-mdm-0.1.war xyz-mdm.war \
+&& docker build --build-arg EBX_VERSION=5.9.0.1098 --build-arg EBX_ADDONS_VERSION=5.9.0.1098_addons_4.0.0.0038 -t xyz-mdm:0.0.1 . \
+&& docker run --rm -p 9090:8080 --mount type=volume,src=ebx590,dst=/data/app/ebx -e "CATALINA_OPTS=-DebxLicense=$EBXLICENSE" --name ebx1 xyz-mdm:0.0.1
+```
 
 ## connect to running container
 

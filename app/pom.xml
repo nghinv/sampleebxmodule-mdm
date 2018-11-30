@@ -44,6 +44,13 @@
     	<version>2.8.1</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.on.ps.lib</groupId>
+    	<artifactId>ps-lib</artifactId>
+    	<version>20181129</version>
+      <scope>provided</scope>
+    </dependency>
+
 	</dependencies>
 
 	<build>
@@ -93,6 +100,15 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+          <configuration>
+              <useSystemClassLoader>false</useSystemClassLoader>
+          </configuration>
       </plugin>
 
 		</plugins>
