@@ -17,16 +17,17 @@ node {
 
    stage('Build') {
       // Run the maven build
-      sh "pwd"
-      sh "ls"
+      // sh "pwd"
+      // sh "ls"
+      
        dir('app') {
            //sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
-           sh "mvn -Dmaven.test.failure.ignore clean package"
+           sh "mvn -DskipTests -Dmaven.test.failure.ignore clean package"
        }
    }
 
    stage('Results') {
-      junit '**/target/surefire-reports/TEST-*.xml'
-      archive 'target/*.jar'
+      junit '**/target/surefire-reports/*.xml'
+      // archive 'target/*.jar'
    }
 }
