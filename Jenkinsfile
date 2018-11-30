@@ -15,7 +15,7 @@ node {
       //mvnHome = tool 'M3'
    //}
 
-   stage('Build') {
+   stage('Build mvn') {
       // Run the maven build
       // sh "pwd"
       // sh "ls"
@@ -23,7 +23,16 @@ node {
        dir('app') {
            //sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
            sh "mvn -DskipTests -Dmaven.test.failure.ignore clean package"
+           sh "cp target/xyz-mdm-0.1.war ../xyz-mdm.war"
        }
+   }
+
+   stage('Build docker') {
+      // Run the docker build
+      sh "pwd"
+      sh "ls"
+
+      docker.build("mickaelgermemont/xyz:${env.BUILD_NUMBER}").push()
    }
 
    // stage('Results') {
