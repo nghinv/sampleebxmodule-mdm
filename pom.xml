@@ -13,7 +13,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.classes.directory>${project.basedir}/src/main/webapp/WEB-INF/classes</project.classes.directory>
 	</properties>
 
 	<dependencies>
@@ -55,45 +54,6 @@
 	</dependencies>
 
 	<build>
-    <outputDirectory>${project.classes.directory}</outputDirectory>
-
-		<resources>
-			<resource>
-				<directory>${project.build.sourceDirectory}</directory>
-				<excludes>
-					<exclude>**/*.java</exclude>
-				</excludes>
-			</resource>
-		</resources>
-
-		<plugins>
-			<plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-        <version>3.0.0</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>${project.classes.directory}</directory>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
-
-			<plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-        <version>3.2.0</version>
-				<executions>
-					<execution>
-						<id>inplace</id>
-						<phase>package</phase>
-						<goals>
-							<goal>inplace</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
