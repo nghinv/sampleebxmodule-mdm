@@ -31,7 +31,7 @@ put your ebxLicense in ~/.profile
 export EBXLICENSE=XXXXX-XXXXX-XXXXX-XXXXX
 source ~/.profile
 
-docker run --rm -p 9090:8080 --mount type=volume,src=ebx590,dst=/data/app/ebx -e "CATALINA_OPTS=-DebxLicense=$EBXLICENSE" --name ebx1 xyz-mdm:0.0.1
+docker run --rm -p 9090:8080 --mount type=volume,src=ebx590,dst=/data/app/ebx -e "CATALINA_OPTS=-DebxLicense=$EBXLICENSE" --name ebx1 mickaelgermemont/xyz-mdm:0.0.1
 ```
 
 open your browser at ```http://localhost:9090/ebx```
